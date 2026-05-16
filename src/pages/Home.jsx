@@ -15,8 +15,6 @@ const Home = () => {
 
     let filteredProducts = productsData
 
-    // Search Filter
-
     if(search){
 
       filteredProducts = filteredProducts.filter((product)=>
@@ -26,8 +24,6 @@ const Home = () => {
       )
 
     }
-
-    // Category Filter
 
     if(category !== "All"){
 
@@ -45,48 +41,52 @@ const Home = () => {
 
   return (
 
-    <div className="max-w-7xl mx-auto px-6 py-8">
+    <div className="max-w-7xl mx-auto px-6 py-10">
 
       {/* Hero Section */}
 
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl text-white p-10 shadow-xl">
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-[40px] p-14 text-white shadow-xl">
 
-        <h1 className="text-6xl font-bold leading-tight">
-          Buy & Sell
-          <br />
-          Products On Campus
-        </h1>
+        <div className="max-w-3xl">
 
-        <p className="mt-4 text-lg max-w-xl">
-          Find the best student deals for electronics,
-          furniture, books and more.
-        </p>
+          <h1 className="text-6xl font-extrabold leading-tight">
 
-        <button className="bg-yellow-400 text-black px-6 py-3 rounded-xl font-bold mt-6 hover:scale-105 duration-300">
+            Buy & Sell
+            <br />
+            Products On Campus
 
-          Explore Products
+          </h1>
 
-        </button>
+          <p className="text-xl mt-6 text-blue-100 leading-8">
+
+            Find the best student deals on electronics,
+            furniture, books, accessories and more.
+
+          </p>
+
+          <button className="bg-yellow-400 hover:bg-yellow-500 duration-300 text-black font-bold px-8 py-4 rounded-2xl mt-8 text-lg">
+
+            Explore Products
+
+          </button>
+
+        </div>
 
       </div>
 
       {/* Search & Filter */}
 
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 mt-12">
-
-        {/* Search */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mt-14">
 
         <input
           type="text"
           placeholder="Search products..."
           value={search}
           onChange={(e)=>setSearch(e.target.value)}
-          className="bg-white shadow-md px-5 py-3 rounded-xl outline-none w-full md:w-96"
+          className="bg-white shadow-md rounded-2xl px-6 py-4 outline-none text-lg w-full lg:w-[400px]"
         />
 
-        {/* Category Buttons */}
-
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-4">
 
           {
             ["All", "Electronics", "Furniture", "Mobiles", "Accessories", "Books"]
@@ -94,14 +94,14 @@ const Home = () => {
               <button
                 key={item}
                 onClick={()=>setCategory(item)}
-                className={`px-5 py-2 rounded-xl font-medium duration-300
+                className={`px-6 py-3 rounded-2xl font-semibold duration-300
 
                   ${
                     category === item
                     ?
                     "bg-blue-600 text-white"
                     :
-                    "bg-white shadow hover:bg-blue-100"
+                    "bg-white shadow-md hover:bg-blue-100"
                   }
 
                 `}
@@ -117,23 +117,27 @@ const Home = () => {
 
       </div>
 
-      {/* Products Section */}
+      {/* Products */}
 
-      <div className="mt-12">
+      <div className="mt-16">
 
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-10">
 
-          <h2 className="text-4xl font-bold">
+          <h2 className="text-5xl font-bold">
+
             Latest Products
+
           </h2>
 
-          <p className="text-gray-500">
+          <p className="text-gray-500 text-lg">
+
             {products.length} Products
+
           </p>
 
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-10">
 
           {
             products.map((product)=>(
@@ -144,27 +148,28 @@ const Home = () => {
             ))
           }
 
-          {
-            products.length === 0 && (
-
-              <div className="col-span-full text-center py-20">
-
-                <h2 className="text-3xl font-bold text-gray-500">
-
-                  No Products Found
-
-                </h2>
-
-              </div>
-
-            )
-          }
-
         </div>
+
+        {
+          products.length === 0 && (
+
+            <div className="text-center py-20">
+
+              <h2 className="text-4xl font-bold text-gray-500">
+
+                No Products Found
+
+              </h2>
+
+            </div>
+
+          )
+        }
 
       </div>
 
     </div>
+
   )
 }
 

@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import Navbar from "./components/Navbar"
+import Footer from "./components/Footer"
 
 import Home from "./pages/Home"
 import AddProduct from "./pages/AddProduct"
@@ -13,31 +14,41 @@ function App() {
 
     <BrowserRouter>
 
-      <Navbar />
+      <div className="min-h-screen flex flex-col">
 
-      <Routes>
+        <Navbar />
 
-        <Route
-          path="/"
-          element={<Home />}
-        />
+        <div className="flex-grow">
 
-        <Route
-          path="/add-product"
-          element={<AddProduct />}
-        />
+          <Routes>
 
-        <Route
-          path="/favorites"
-          element={<Favorites />}
-        />
+            <Route
+              path="/"
+              element={<Home />}
+            />
 
-        <Route
-          path="/product/:id"
-          element={<ProductDetails />}
-        />
+            <Route
+              path="/add-product"
+              element={<AddProduct />}
+            />
 
-      </Routes>
+            <Route
+              path="/favorites"
+              element={<Favorites />}
+            />
+
+            <Route
+              path="/product/:id"
+              element={<ProductDetails />}
+            />
+
+          </Routes>
+
+        </div>
+
+        <Footer />
+
+      </div>
 
     </BrowserRouter>
 
