@@ -1,7 +1,47 @@
-import products from "../data/products"
+import { useState, useEffect } from "react"
+
+import productsData from "../data/products"
 import ProductCard from "../components/ProductCard"
 
 const Home = () => {
+
+  const [products, setProducts] = useState(productsData)
+
+  const [search, setSearch] = useState("")
+
+  const [category, setCategory] = useState("All")
+
+  useEffect(() => {
+
+    let filteredProducts = productsData
+
+    // Search Filter
+
+    if(search){
+
+      filteredProducts = filteredProducts.filter((product)=>
+
+        product.title.toLowerCase().includes(search.toLowerCase())
+
+      )
+
+    }
+
+    // Category Filter
+
+    if(category !== "All"){
+
+      filteredProducts = filteredProducts.filter((product)=>
+
+        product.category === category
+
+      )
+
+    }
+
+    setProducts(filteredProducts)
+
+  }, [search, category])
 
   return (
 
@@ -30,7 +70,54 @@ const Home = () => {
 
       </div>
 
-      {/* Product Section */}
+      {/* Search & Filter */}
+
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 mt-12">
+
+        {/* Search */}
+
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={search}
+          onChange={(e)=>setSearch(e.target.value)}
+          className="bg-white shadow-md px-5 py-3 rounded-xl outline-none w-full md:w-96"
+        />
+
+        {/* Category Buttons */}
+
+        <div className="flex flex-wrap gap-3">
+
+          {
+            ["All", "Electronics", "Furniture", "Mobiles", "Accessories", "Books"]
+            .map((item)=>(
+              <button
+                key={item}
+                onClick={()=>setCategory(item)}
+                className={`px-5 py-2 rounded-xl font-medium duration-300
+
+                  ${
+                    category === item
+                    ?
+                    "bg-blue-600 text-white"
+                    :
+                    "bg-white shadow hover:bg-blue-100"
+                  }
+
+                `}
+              >
+
+                {item}
+
+              </button>
+            ))
+          }
+
+        </div>
+
+      </div>
+
+      {/* Products Section */}
 
       <div className="mt-12">
 
@@ -40,9 +127,9 @@ const Home = () => {
             Latest Products
           </h2>
 
-          <button className="text-blue-600 font-semibold">
-            View All
-          </button>
+          <p className="text-gray-500">
+            {products.length} Products
+          </p>
 
         </div>
 
@@ -55,6 +142,22 @@ const Home = () => {
                 product={product}
               />
             ))
+          }
+
+          {
+            products.length === 0 && (
+
+              <div className="col-span-full text-center py-20">
+
+                <h2 className="text-3xl font-bold text-gray-500">
+
+                  No Products Found
+
+                </h2>
+
+              </div>
+
+            )
           }
 
         </div>
